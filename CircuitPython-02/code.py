@@ -19,6 +19,7 @@ def game_scene():
 
     while True:
         pass # just a placeholder for now
-    
+
+
 if __name__ == "__main__":
     game_scene()

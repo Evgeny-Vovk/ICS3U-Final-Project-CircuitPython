@@ -29,6 +29,7 @@ def game_scene():
         #redraw Sprites
         game.render_sprites([ship])
         game.tick()
-    
+
+
 if __name__ == "__main__":
     game_scene()
