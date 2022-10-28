@@ -256,6 +256,7 @@ def game_scene():
                     sound.play(crash_sound)
                     time.sleep(3.0)
                     game_over_scene(score)
+
         #redraw Sprites 
         game.render_sprites(aliens + lasers + [ship])
         game.tick() # wait until refresh rate finishes
@@ -289,7 +290,7 @@ def game_over_scene(final_score):
     while True:
         keys = ugame.buttons.get_pressed()
         if keys & ugame.K_SELECT != 0:
-            supervisor.reload()
+            supervisior.reload()
         game.tick()
 
 
