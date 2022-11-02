@@ -9,15 +9,20 @@ import stage
 
 import constants
 
+
 def game_scene():
     # this function is the main game game_scene
 
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
 
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(
+        image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
+    )
 
-    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
+    ship = stage.Sprite(
+        image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    )
 
     game = stage.Stage(ugame.display, constants.FPS)
     game.layers = [ship] + [background]
@@ -52,9 +57,9 @@ def game_scene():
 
         # update game logic
 
-        #redraw Sprites
+        # redraw Sprites
         game.render_sprites([ship])
-        game.tick() # wait until refresh rate finishes
+        game.tick()  # wait until refresh rate finishes
 
 
 if __name__ == "__main__":

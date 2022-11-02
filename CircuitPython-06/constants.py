@@ -18,5 +18,5 @@ button_state = {
     "button_up": "up",
     "button_just_pressed": "just pressed",
     "button_still_pressed": "still pressed",
-    "button_released": "released"
+    "button_released": "released",
 }
