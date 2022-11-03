@@ -16,7 +16,7 @@ def splash_scene():
     # this function is the main game game_scene
 
     # get sound ready
-    coin_sound = open("coin.wav", 'rb')
+    coin_sound = open("coin.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
@@ -24,9 +24,13 @@ def splash_scene():
 
     image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
 
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(
+        image_bank_background,
+        constants.SCREEN_GRID_X,
+        constants.SCREEN_GRID_Y,
+    )
 
-    # used this program to split the image into tile: 
+    # used this program to split the image into tile:
     # https://ezgif.com/sprite-cutter/ezgif-5-818cdbcc3f66.png
     background.tile(2, 2, 0)  # blank white
     background.tile(3, 2, 1)
@@ -71,19 +75,27 @@ def menu_scene():
 
     image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
 
-    #add text objects
+    # add text objects
     text = []
-    text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text1 = stage.Text(
+        width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None
+    )
     text1.move(20, 10)
     text1.text("MT Game Studios")
     text.append(text1)
-    
-    text2 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+
+    text2 = stage.Text(
+        width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None
+    )
     text2.move(40, 110)
     text2.text("PRESS START")
     text.append(text2)
 
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(
+        image_bank_background,
+        constants.SCREEN_GRID_X,
+        constants.SCREEN_GRID_Y,
+    )
 
     game = stage.Stage(ugame.display, constants.FPS)
     game.layers = text + [background]
@@ -110,36 +122,56 @@ def game_scene():
         # this function take an alien from off screen and moves it on screen
         for alien_number in range(len(aliens)):
             if aliens[alien_number].x < 0:
-                aliens[alien_number].move(random.randint(0 + constants.SPRITE_SIZE, constants.SCREEN_X - constants.SPRITE_SIZE), constants.OFF_TOP_SCREEN)
+                aliens[alien_number].move(
+                    random.randint(
+                        0 + constants.SPRITE_SIZE,
+                        constants.SCREEN_X - constants.SPRITE_SIZE,
+                    ),
+                    constants.OFF_TOP_SCREEN,
+                )
                 break
 
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
 
-    #buttons that you want to keep state information on
+    # buttons that you want to keep state information on
     a_button = constants.button_state["button_up"]
     b_button = constants.button_state["button_up"]
     start_button = constants.button_state["button_up"]
     select_button = constants.button_state["button_up"]
 
     # get sound ready
-    pew_sound = open("pew.wav", 'rb')
-    boom_sound = open("boom.wav", 'rb')
+    pew_sound = open("pew.wav", "rb")
+    boom_sound = open("boom.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
 
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(
+        image_bank_background,
+        constants.SCREEN_GRID_X,
+        constants.SCREEN_GRID_Y,
+    )
     for x_location in range(constants.SCREEN_GRID_X):
         for y_location in range(constants.SCREEN_GRID_Y):
             tile_picked = random.randint(1, 3)
             background.tile(x_location, y_location, tile_picked)
 
-    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
+    ship = stage.Sprite(
+        image_bank_sprites,
+        5,
+        75,
+        constants.SCREEN_Y - (2 * constants.SPRITE_SIZE),
+    )
 
     aliens = []
     for alien_number in range(constants.TOTAL_NUMBER_OF_ALIENS):
-        a_single_alien = stage.Sprite(image_bank_sprites, 9, constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+        a_single_alien = stage.Sprite(
+            image_bank_sprites,
+            9,
+            constants.OFF_SCREEN_X,
+            constants.OFF_SCREEN_Y,
+        )
         aliens.append(a_single_alien)
     # place 1 alien on the screen
     show_alien()
@@ -147,7 +179,12 @@ def game_scene():
     # create list of lasers for when we shoot
     lasers = []
     for laser_number in range(constants.TOTAL_NUMBER_OF_LASERS):
-        a_single_laser = stage.Sprite(image_bank_sprites, 10, constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+        a_single_laser = stage.Sprite(
+            image_bank_sprites,
+            10,
+            constants.OFF_SCREEN_X,
+            constants.OFF_SCREEN_Y,
+        )
         lasers.append(a_single_laser)
 
     game = stage.Stage(ugame.display, constants.FPS)
@@ -202,36 +239,63 @@ def game_scene():
         # each frame move the lasers, that have been fired up
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
-                lasers[laser_number].move(lasers[laser_number].x, lasers[laser_number].y - constants.LASER_SPEED)
+                lasers[laser_number].move(
+                    lasers[laser_number].x,
+                    lasers[laser_number].y - constants.LASER_SPEED,
+                )
                 if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
-                    lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                    lasers[laser_number].move(
+                        constants.OFF_SCREEN_X,
+                        constants.OFF_SCREEN_Y,
+                    )
 
         # each frame move the aliens down, that are on the screen
         for alien_number in range(len(aliens)):
             if aliens[alien_number].x > 0:
-                aliens[alien_number].move(aliens[alien_number].x, aliens[alien_number].y + constants.ALIEN_SPEED)
+                aliens[alien_number].move(
+                    aliens[alien_number].x,
+                    aliens[alien_number].y + constants.ALIEN_SPEED,
+                )
                 if aliens[alien_number].y > constants.SCREEN_Y:
-                    aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                    aliens[alien_number].move(
+                        constants.OFF_SCREEN_X,
+                        constants.OFF_SCREEN_Y,
+                    )
                     show_alien()
 
-        #collisin between alien and laser
+        # collisin between alien and laser
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
                 for alien_number in range(len(aliens)):
                     if aliens[alien_number].x > 0:
-                        if stage.collide(lasers[laser_number].x + 6, lasers[laser_number].y + 2, lasers[laser_number].x + 11, lasers[laser_number].y + 12, aliens[alien_number].x + 1, aliens[alien_number].y, aliens[alien_number].x + 15, aliens[alien_number].y + 15):
+                        if stage.collide(
+                            lasers[laser_number].x + 6,
+                            lasers[laser_number].y + 2,
+                            lasers[laser_number].x + 11,
+                            lasers[laser_number].y + 12,
+                            aliens[alien_number].x + 1,
+                            aliens[alien_number].y,
+                            aliens[alien_number].x + 15,
+                            aliens[alien_number].y + 15,
+                        ):
                             # you hit an alien
-                            aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
-                            lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            aliens[alien_number].move(
+                                constants.OFF_SCREEN_X,
+                                constants.OFF_SCREEN_Y,
+                            )
+                            lasers[laser_number].move(
+                                constants.OFF_SCREEN_X,
+                                constants.OFF_SCREEN_Y,
+                            )
                             sound.stop()
                             sound.play(boom_sound)
                             show_alien()
                             show_alien()
                             score += 1
 
-        #redraw Sprites 
+        # redraw Sprites
         game.render_sprites(aliens + lasers + [ship])
-        game.tick() # wait until refresh rate finishes
+        game.tick()  # wait until refresh rate finishes
 
 
 if __name__ == "__main__":
